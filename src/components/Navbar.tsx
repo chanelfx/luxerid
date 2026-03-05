@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { Car, Heart, Home, LogIn, LogOut, Menu, Phone, Settings, User, X } from "lucide-react";
+import { ArrowLeftRight, Car, Heart, Home, LogIn, LogOut, Menu, Phone, Settings, User, X } from "lucide-react";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -11,6 +11,7 @@ const Navbar = () => {
   const links = [
     { to: "/", label: "Home", icon: Home },
     { to: "/cars", label: "Cars", icon: Car },
+    { to: "/compare", label: "Compare", icon: ArrowLeftRight },
     { to: "/contact", label: "Contact", icon: Phone },
   ];
 

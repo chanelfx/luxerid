@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { carsData } from "@/data/cars";
 import { useAuth } from "@/contexts/AuthContext";
@@ -7,7 +7,7 @@ import StarRating from "@/components/StarRating";
 import heroCar1 from "@/assets/hero-car-1.jpg";
 import heroCar2 from "@/assets/hero-car-2.jpg";
 import heroCar3 from "@/assets/hero-car-3.jpg";
-import { Award, Car, ChevronLeft, ChevronRight, Clock, DollarSign, Fuel, Headphones, Search, Settings2, Users } from "lucide-react";
+import { Award, Car, ChevronLeft, ChevronRight, Clock, DollarSign, Flame, Fuel, Headphones, Search, Settings2, Sparkles, Users } from "lucide-react";
 
 const heroImages = [heroCar1, heroCar2, heroCar3];
 
@@ -23,6 +23,8 @@ const Index = () => {
   }, []);
 
   const featured = carsData.filter(c => c.available).slice(0, 6);
+  const popular = [...carsData].sort((a, b) => b.reviews - a.reviews).slice(0, 4);
+  const recentlyAdded = [...carsData].sort((a, b) => b.year - a.year).slice(0, 4);
 
   return (
     <div className="min-h-screen">
@@ -46,19 +48,15 @@ const Index = () => {
               Browse Cars
             </Link>
             <Link to="/contact" className="border border-foreground/20 text-foreground px-8 py-3 rounded-xl font-display font-semibold hover:bg-foreground/5 transition-colors">
-              Contact Us
+              Contact Admin
             </Link>
           </div>
-
-          {/* Hero dots */}
           <div className="flex gap-2 mt-12">
             {heroImages.map((_, i) => (
               <button key={i} onClick={() => setHeroIdx(i)} className={`w-2.5 h-2.5 rounded-full transition-all ${i === heroIdx ? "bg-primary w-8" : "bg-foreground/30"}`} />
             ))}
           </div>
         </div>
-
-        {/* Arrows */}
         <button onClick={() => setHeroIdx(i => (i - 1 + heroImages.length) % heroImages.length)} className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-background/20 backdrop-blur-md flex items-center justify-center text-foreground/60 hover:text-foreground transition-colors">
           <ChevronLeft className="w-5 h-5" />
         </button>
@@ -108,8 +106,22 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Why Choose Us */}
+      {/* Popular Cars */}
       <section className="bg-card/50 py-20">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="font-display font-bold text-3xl md:text-4xl mb-3"><Flame className="w-8 h-8 inline text-primary mr-2" />Popular <span className="gold-text">Cars</span></h2>
+            <div className="section-divider mb-4" />
+            <p className="text-muted-foreground">Most reviewed and loved by our clients</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {popular.map(car => <CarCard key={car.id} car={car} />)}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us */}
+      <section className="py-20">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="font-display font-bold text-3xl md:text-4xl mb-3">Why Choose <span className="gold-text">Us</span></h2>
@@ -135,32 +147,34 @@ const Index = () => {
       </section>
 
       {/* How It Works */}
-      <section className="container py-20">
-        <div className="text-center mb-12">
-          <h2 className="font-display font-bold text-3xl md:text-4xl mb-3">How It <span className="gold-text">Works</span></h2>
-          <div className="section-divider" />
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {[
-            { step: "01", icon: Search, title: "Choose a Car", desc: "Browse our fleet and find your perfect vehicle" },
-            { step: "02", icon: Car, title: "Contact Admin", desc: "Reach out via WhatsApp or phone call" },
-            { step: "03", icon: DollarSign, title: "Agree on Deal", desc: "Discuss terms, pricing, and rental duration" },
-            { step: "04", icon: Car, title: "Pick Up Car", desc: "Get the keys and hit the road!" },
-          ].map((item, i) => (
-            <div key={i} className="text-center relative">
-              <div className="text-6xl font-display font-bold text-primary/10 mb-2">{item.step}</div>
-              <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mx-auto mb-3">
-                <item.icon className="w-6 h-6 text-accent" />
+      <section className="bg-card/50 py-20">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="font-display font-bold text-3xl md:text-4xl mb-3">How It <span className="gold-text">Works</span></h2>
+            <div className="section-divider" />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            {[
+              { step: "01", icon: Search, title: "Choose a Car", desc: "Browse our fleet and find your perfect vehicle" },
+              { step: "02", icon: Car, title: "Contact Admin", desc: "Reach out via WhatsApp or phone call" },
+              { step: "03", icon: DollarSign, title: "Agree on Deal", desc: "Discuss terms, pricing, and rental duration" },
+              { step: "04", icon: Car, title: "Pick Up Car", desc: "Get the keys and hit the road!" },
+            ].map((item, i) => (
+              <div key={i} className="text-center relative">
+                <div className="text-6xl font-display font-bold text-primary/10 mb-2">{item.step}</div>
+                <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mx-auto mb-3">
+                  <item.icon className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="font-display font-semibold mb-1">{item.title}</h3>
+                <p className="text-sm text-muted-foreground">{item.desc}</p>
               </div>
-              <h3 className="font-display font-semibold mb-1">{item.title}</h3>
-              <p className="text-sm text-muted-foreground">{item.desc}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Reviews */}
-      <section className="bg-card/50 py-20">
+      <section className="py-20">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="font-display font-bold text-3xl md:text-4xl mb-3">Customer <span className="gold-text">Reviews</span></h2>
@@ -185,6 +199,20 @@ const Index = () => {
           ) : (
             <p className="text-center text-muted-foreground">No reviews yet. Be the first to leave a review!</p>
           )}
+        </div>
+      </section>
+
+      {/* Recently Added */}
+      <section className="bg-card/50 py-20">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="font-display font-bold text-3xl md:text-4xl mb-3"><Sparkles className="w-8 h-8 inline text-primary mr-2" />Recently <span className="gold-text">Added</span></h2>
+            <div className="section-divider mb-4" />
+            <p className="text-muted-foreground">The newest additions to our fleet</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {recentlyAdded.map(car => <CarCard key={car.id} car={car} />)}
+          </div>
         </div>
       </section>
 
