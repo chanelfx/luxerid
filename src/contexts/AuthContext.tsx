@@ -41,7 +41,7 @@ export const useAuth = () => {
   return ctx;
 };
 
-const ADMIN: User = { id: "admin", name: "Admin", email: "admin@carrent.com", phone: "+1234567890", isAdmin: true, favorites: [], rentalHistory: [] };
+const ADMIN: User = { id: "admin", name: "Admin", email: "admin@carrental.com", phone: "+250792737675", isAdmin: true, favorites: [], rentalHistory: [] };
 
 const getStored = <T,>(key: string, fallback: T): T => {
   try { const d = localStorage.getItem(key); return d ? JSON.parse(d) : fallback; } catch { return fallback; }
@@ -51,14 +51,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(() => getStored("currentUser", null));
   const [users, setUsers] = useState<User[]>(() => getStored("users", []));
   const [reviews, setReviews] = useState<Review[]>(() => getStored("reviews", []));
-  const [passwords] = useState<Record<string, string>>(() => getStored("passwords", { "admin@carrent.com": "admin123" }));
+  const [passwords] = useState<Record<string, string>>(() => getStored("passwords", { "admin@carrental.com": "admin123" }));
 
   useEffect(() => { localStorage.setItem("users", JSON.stringify(users)); }, [users]);
   useEffect(() => { localStorage.setItem("reviews", JSON.stringify(reviews)); }, [reviews]);
   useEffect(() => { if (user) localStorage.setItem("currentUser", JSON.stringify(user)); else localStorage.removeItem("currentUser"); }, [user]);
 
   const login = (email: string, password: string) => {
-    if (email === "admin@carrent.com" && password === "admin123") { setUser(ADMIN); return true; }
+    if (email === "admin@carrental.com" && password === "admin123") { setUser(ADMIN); return true; }
     const stored = passwords[email];
     if (stored === password) {
       const u = users.find(u => u.email === email);
@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const register = (name: string, email: string, phone: string, password: string) => {
-    if (users.find(u => u.email === email) || email === "admin@carrent.com") return false;
+    if (users.find(u => u.email === email) || email === "admin@carrental.com") return false;
     const newUser: User = { id: Date.now().toString(), name, email, phone, isAdmin: false, favorites: [], rentalHistory: [] };
     setUsers(prev => [...prev, newUser]);
     const p = { ...passwords, [email]: password };

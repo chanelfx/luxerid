@@ -133,10 +133,10 @@ const CarDetails = () => {
           {/* Sidebar */}
           <div className="space-y-4">
             <div className="glass-card p-6 space-y-3 sticky top-20">
-              <a href={`https://wa.me/15551234567?text=${whatsappMsg}`} target="_blank" rel="noopener" className="w-full flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-foreground px-6 py-3 rounded-xl font-semibold transition-colors">
+              <a href={`https://wa.me/250792737675?text=${whatsappMsg}`} target="_blank" rel="noopener" className="w-full flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-foreground px-6 py-3 rounded-xl font-semibold transition-colors">
                 <MessageCircle className="w-5 h-5" /> WhatsApp
               </a>
-              <a href="tel:+15551234567" className="w-full flex items-center justify-center gap-2 sky-gradient text-foreground px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity">
+              <a href="tel:+250792737675" className="w-full flex items-center justify-center gap-2 sky-gradient text-foreground px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity">
                 <Phone className="w-5 h-5" /> Call Admin
               </a>
               {user && (

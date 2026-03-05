@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Mail, MapPin, MessageCircle, Phone, Send } from "lucide-react";
+import { Clock, Mail, MapPin, MessageCircle, Phone, Send } from "lucide-react";
 
 const ContactPage = () => {
   const [name, setName] = useState("");
@@ -42,10 +42,10 @@ const ContactPage = () => {
           {/* Info */}
           <div className="space-y-6">
             {[
-              { icon: Phone, title: "Phone", value: "+1 (555) 123-4567", href: "tel:+15551234567" },
-              { icon: MessageCircle, title: "WhatsApp", value: "Chat with us", href: "https://wa.me/15551234567" },
-              { icon: Mail, title: "Email", value: "info@luxeride.com", href: "mailto:info@luxeride.com" },
-              { icon: MapPin, title: "Location", value: "123 Luxury Ave, New York, NY", href: "#" },
+              { icon: Phone, title: "Phone", value: "+250 792 737 675", href: "tel:+250792737675" },
+              { icon: MessageCircle, title: "WhatsApp", value: "Chat with us", href: "https://wa.me/250792737675" },
+              { icon: Mail, title: "Email", value: "chanelvibes0@gmail.com", href: "mailto:chanelvibes0@gmail.com" },
+              { icon: MapPin, title: "Location", value: "Kigali, Rwanda", href: "#" },
             ].map((item, i) => (
               <a key={i} href={item.href} target={item.href.startsWith("http") ? "_blank" : undefined} rel="noopener" className="glass-card-hover p-5 flex items-center gap-4 block">
                 <div className="w-12 h-12 rounded-xl gold-gradient flex items-center justify-center flex-shrink-0">
@@ -58,9 +58,27 @@ const ContactPage = () => {
               </a>
             ))}
 
-            {/* Map placeholder */}
+            {/* Business Hours */}
+            <div className="glass-card p-5">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-12 h-12 rounded-xl gold-gradient flex items-center justify-center flex-shrink-0">
+                  <Clock className="w-5 h-5 text-primary-foreground" />
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Business Hours</p>
+                  <p className="font-medium">Open Daily</p>
+                </div>
+              </div>
+              <div className="ml-15 space-y-1 text-sm text-muted-foreground pl-[60px]">
+                <p>Mon - Fri: 8:00 AM – 8:00 PM</p>
+                <p>Saturday: 9:00 AM – 6:00 PM</p>
+                <p>Sunday: 10:00 AM – 4:00 PM</p>
+              </div>
+            </div>
+
+            {/* Map */}
             <div className="glass-card overflow-hidden rounded-2xl h-48">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387191.33750346623!2d-73.97968099999999!3d40.6974881!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1" width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy" />
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127672.75772082!2d29.8!3d-1.95!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca4258ed8e797%3A0xf32b36a5411d0bc8!2sKigali%2C%20Rwanda!5e0!3m2!1sen!2s!4v1" width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy" />
             </div>
           </div>
         </div>
