@@ -3,9 +3,22 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Eye, EyeOff, LogIn } from "lucide-react";
 
+const REMEMBER_KEY = "rememberedLogin";
+
+const getRemembered = (): { email: string; password: string } | null => {
+  try {
+    const d = localStorage.getItem(REMEMBER_KEY);
+    return d ? JSON.parse(d) : null;
+  } catch {
+    return null;
+  }
+};
+
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const remembered = getRemembered();
+  const [email, setEmail] = useState(remembered?.email || "");
+  const [password, setPassword] = useState(remembered?.password || "");
+  const [remember, setRemember] = useState(!!remembered);
   const [showPw, setShowPw] = useState(false);
   const [error, setError] = useState("");
   const { login } = useAuth();
@@ -13,8 +26,13 @@ const LoginPage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (login(email, password)) nav("/");
-    else setError("Invalid email or password");
+    if (login(email, password)) {
+      if (remember) localStorage.setItem(REMEMBER_KEY, JSON.stringify({ email, password }));
+      else localStorage.removeItem(REMEMBER_KEY);
+      nav("/");
+    } else {
+      setError("Invalid email or password");
+    }
   };
 
   return (
@@ -31,6 +49,10 @@ const LoginPage = () => {
             <input type={showPw ? "text" : "password"} value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" required className="bg-secondary border-0 rounded-xl px-4 py-3 text-sm w-full focus:ring-2 focus:ring-primary outline-none text-foreground pr-10" />
             <button type="button" onClick={() => setShowPw(!showPw)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">{showPw ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}</button>
           </div>
+          <label className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer select-none">
+            <input type="checkbox" checked={remember} onChange={e => setRemember(e.target.checked)} className="accent-primary w-4 h-4" />
+            Remember me
+          </label>
           <button type="submit" className="gold-gradient text-primary-foreground w-full py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
             <LogIn className="w-4 h-4" /> Sign In
           </button>
