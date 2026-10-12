@@ -7,6 +7,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
+import MotionFX from "@/components/MotionFX";
 import Index from "./pages/Index";
 import CarsPage from "./pages/CarsPage";
 import CarDetails from "./pages/CarDetails";
@@ -28,6 +29,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <MotionFX />
           <Navbar />
           <Routes>
             <Route path="/" element={<Index />} />

@@ -135,3 +135,25 @@
 
 /* Smooth scroll */
 html { scroll-behavior: smooth; }
+
+/* ===== Global motion FX ===== */
+.fx-progress { background: linear-gradient(90deg, hsl(var(--primary)), hsl(199 89% 60%), hsl(var(--primary))); background-size: 200% 100%; animation: fx-shimmer 2s linear infinite; box-shadow: 0 0 12px hsl(var(--primary)); transition: width .1s; }
+.fx-glow { width: 400px; height: 400px; border-radius: 9999px; background: radial-gradient(circle, hsl(var(--primary) / .14), transparent 65%); transition: transform .15s ease-out; }
+.fx-particle { position: absolute; bottom: -10px; border-radius: 9999px; background: hsl(var(--primary) / .6); box-shadow: 0 0 10px hsl(var(--primary)); animation: fx-float linear infinite; opacity: 0; }
+.fx-particle:nth-child(3n) { background: hsl(199 89% 60% / .6); box-shadow: 0 0 10px hsl(199 89% 60%); }
+.fx-reveal { opacity: 0; transform: translateY(40px) scale(.96); filter: blur(6px); transition: opacity .8s cubic-bezier(.2,.8,.2,1), transform .8s cubic-bezier(.2,.8,.2,1), filter .8s; }
+.fx-reveal.fx-in { opacity: 1; transform: none; filter: none; }
+.fx-tilting { transition: transform .12s ease-out !important; will-change: transform; }
+.fx-curtain { position: fixed; inset: 0; z-index: 99; display: flex; align-items: center; justify-content: center; background: hsl(var(--background)); clip-path: inset(0 0 100% 0); transition: clip-path .6s cubic-bezier(.7,0,.3,1); pointer-events: none; }
+.fx-curtain-on { clip-path: inset(0 0 0 0); transition: none; }
+.fx-curtain span { animation: fx-pulse 1s ease-in-out infinite; }
+main img, section img { transition: transform 1.2s cubic-bezier(.2,.8,.2,1); }
+a:hover img, .group:hover img { transform: scale(1.08); }
+button, a { transition: transform .25s, box-shadow .25s; }
+button:active { transform: scale(.95); }
+h1 { animation: fx-title 1.2s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes fx-shimmer { to { background-position: -200% 0; } }
+@keyframes fx-float { 0% { transform: translateY(0) translateX(0); opacity: 0; } 10% { opacity: 1; } 50% { transform: translateY(-50vh) translateX(30px); } 90% { opacity: .8; } 100% { transform: translateY(-110vh) translateX(-20px); opacity: 0; } }
+@keyframes fx-pulse { 50% { opacity: .5; transform: scale(.95); letter-spacing: .1em; } }
+@keyframes fx-title { from { opacity: 0; transform: translateY(30px); letter-spacing: .15em; filter: blur(8px); } to { opacity: 1; transform: none; filter: none; } }
+@media (prefers-reduced-motion: reduce) { .fx-reveal, h1, .fx-particle, .fx-progress { animation: none !important; opacity: 1 !important; transform: none !important; filter: none !important; } }
