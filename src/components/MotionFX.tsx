@@ -85,7 +85,7 @@ const MotionFX = () => {
         ))}
       </div>
       <div className={`fx-curtain ${curtain ? "fx-curtain-on" : ""}`} aria-hidden>
-        <span className="font-heading text-3xl md:text-5xl font-bold text-gradient-gold">LuxeRide</span>
+        <span className="text-3xl md:text-5xl font-bold text-primary">LuxeRide</span>
       </div>
     </>
   );
